@@ -1,0 +1,9 @@
+joblib
+numpy
+pandas
+scikit-learn
+flask
+mlflow
+pydantic
+prometheus_flask_exporter
+flask_pydantic

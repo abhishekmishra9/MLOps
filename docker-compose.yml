@@ -1,0 +1,28 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  flask-api:
+    build: .
+    container_name: flask-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/app/models
+      - ./src:/app/src
+    networks:
+      - monitor-net
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitor-net
+
+networks:
+  monitor-net:
