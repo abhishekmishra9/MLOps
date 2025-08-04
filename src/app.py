@@ -17,7 +17,11 @@ from prometheus_flask_exporter import PrometheusMetrics
 # Initialize Flask app
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
-metrics.info('ml_api', 'ML Housing API', version='1.0.0')
+metrics.info(
+    'ml_api',
+    'ML Housing API',
+    version='1.0.0'
+)
 
 # Setup logging
 logging.basicConfig(
@@ -128,7 +132,8 @@ def retrain():
         model = new_model
 
         logging.info(f"Model retrained with {len(df)} records and saved.")
-        return jsonify({"message": f"Model retrained on {len(df)} samples."}), 200
+        message = f"Model retrained on {len(df)} samples."
+        return jsonify({"message": message}), 200
 
     except Exception:
         ERROR_COUNT.inc()
