@@ -10,12 +10,12 @@ from mlflow.models.signature import infer_signature
 import mlflow.sklearn
 
 # Set MLflow tracking and experiment
-data="file:///C:/Users/kalya/Downloads/DMML/mlops-housing/mlruns"
+data = "file:///C:/Users/kalya/Downloads/DMML/mlops-housing/mlruns"
 mlflow.set_tracking_uri(data)
 mlflow.set_experiment("CaliforniaHousing")
 
 # Load dataset
-file="C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv"
+file = "C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv"
 df = pd.read_csv(file)
 X = df.drop(columns=["MedHouseVal"])
 y = df["MedHouseVal"]
@@ -56,11 +56,11 @@ with mlflow.start_run(run_name="best_model") as run:
         registered_model_name="CaliforniaHousingModel",
         input_example=input_example,
         signature=signature)
-    
+
     mlflow.log_param("model_name", best_model_name)
     mlflow.log_metric("mse", best_mse)
 
-    print(f"\n Best model '{best_model_name}'logged with MSE={best_mse:.4f}")
+    print(f"\n Best model '{best_model_name}' logged with MSE={best_mse:.4f}")
 
     # Save locally in MLflow format for API
     save_path = "models/best_model"

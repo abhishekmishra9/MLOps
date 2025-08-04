@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Aug  5 03:05:59 2025
-
 @author: kalya
 """
 
@@ -29,14 +28,13 @@ logging.basicConfig(
 
 # Prometheus metrics
 REQUEST_COUNT = Counter("api_requests_total", "Total number of requests")
-PREDICTION_COUNT =Counter("prediction_requests_total", "Total prediction requests")
+PREDICTION_COUNT = Counter("prediction_requests_total", "Total prediction requests")
 ERROR_COUNT = Counter("prediction_errors_total", "Total prediction errors")
 RETRAIN_COUNT = Counter("retrain_requests_total", "Total retrain requests")
 
 # Model path
 MODEL_PATH = os.path.join("models", "best_model", "model.pkl")
 
-# Input schema
 
 class HousingInput(BaseModel):
     MedInc: float
@@ -48,7 +46,6 @@ class HousingInput(BaseModel):
     Latitude: float
     Longitude: float
 
-# Load model
 
 def load_model():
     if os.path.exists(MODEL_PATH):
@@ -61,8 +58,7 @@ model = load_model()
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({"message": " Housing Price Prediction API (Flask)"}), 200
-
+    return jsonify({"message": "Housing Price Prediction API (Flask)"}), 200
 
 
 @app.route("/predict", methods=["POST"])
@@ -78,7 +74,7 @@ def predict():
         validated_input = HousingInput(**input_json)
         input_df = pd.DataFrame([validated_input.dict()])
         prediction = model.predict(input_df)[0]
-        logging.info(f"Prediction made|Input:{input_json}| Output:{prediction}")
+        logging.info(f"Prediction made | Input: {input_json} | Output: {prediction}")
         PREDICTION_COUNT.inc()
         return jsonify({"prediction": round(float(prediction), 4)}), 200
 
@@ -86,15 +82,14 @@ def predict():
         ERROR_COUNT.inc()
         return jsonify({"error": "Invalid input", "details": ve.errors()}), 400
 
-    except Exception as e:
+    except Exception:
         ERROR_COUNT.inc()
-        logging.exception(" Prediction error") 
-        print(e)
+        logging.exception("Prediction error")
         return jsonify({"error": "Prediction failed"}), 500
 
 
 @app.route("/metrics", methods=["GET"])
-def metrics():
+def metrics_endpoint():
     return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
 
@@ -109,7 +104,6 @@ def retrain():
         if file.filename == '':
             return jsonify({"error": "No selected file"}), 400
 
-        # Load CSV
         df = pd.read_csv(file)
         required_columns = [
             'MedInc', 'HouseAge', 'AveRooms', 'AveBedrms',
@@ -122,22 +116,20 @@ def retrain():
         X = df[required_columns[:-1]]
         y = df['target']
 
-        # Retrain model
         new_model = RandomForestRegressor()
         new_model.fit(X, y)
 
-        # Save and reload
         os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
         joblib.dump(new_model, MODEL_PATH)
+
         global model
         model = new_model
 
         logging.info(f"Model retrained with {len(df)} records and saved.")
-        return jsonify({"message":f"Model retrained on {len(df)} samples."}), 200
+        return jsonify({"message": f"Model retrained on {len(df)} samples."}), 200
 
-    except Exception as e:
+    except Exception:
         ERROR_COUNT.inc()
-        print(e)
         logging.exception("Retrain error")
         return jsonify({"error": "Retrain failed"}), 500
 
