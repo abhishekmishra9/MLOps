@@ -10,11 +10,13 @@ from mlflow.models.signature import infer_signature
 import mlflow.sklearn
 
 # Set MLflow tracking and experiment
-mlflow.set_tracking_uri("file:///C:/Users/kalya/Downloads/DMML/mlops-housing/mlruns")
+data="file:///C:/Users/kalya/Downloads/DMML/mlops-housing/mlruns"
+mlflow.set_tracking_uri(data)
 mlflow.set_experiment("CaliforniaHousing")
 
 # Load dataset
-df = pd.read_csv("C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv")
+file=""C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv""
+df = pd.read_csv(file)
 X = df.drop(columns=["MedHouseVal"])
 y = df["MedHouseVal"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
@@ -36,7 +38,6 @@ for model_name, model in models:
     preds = model.predict(X_test)
     mse = mean_squared_error(y_test, preds)
     print(f"{model_name} MSE: {mse:.4f}")
-    
     if mse < best_mse:
         best_mse = mse
         best_model = model
@@ -54,13 +55,12 @@ with mlflow.start_run(run_name="best_model") as run:
         artifact_path="model",
         registered_model_name="CaliforniaHousingModel",
         input_example=input_example,
-        signature=signature
-    )
+        signature=signature)
     
     mlflow.log_param("model_name", best_model_name)
     mlflow.log_metric("mse", best_mse)
 
-    print(f"\n Best model '{best_model_name}' logged with MSE = {best_mse:.4f}")
+    print(f"\n Best model '{best_model_name}'logged with MSE={best_mse:.4f}")
 
     # Save locally in MLflow format for API
     save_path = "models/best_model"
