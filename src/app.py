@@ -10,7 +10,9 @@ import logging
 import pandas as pd
 from flask import Flask, request, jsonify, Response
 from pydantic import BaseModel, ValidationError
-from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import (
+    Counter, generate_latest, CONTENT_TYPE_LATEST
+)
 from sklearn.ensemble import RandomForestRegressor
 from prometheus_flask_exporter import PrometheusMetrics
 
