@@ -74,7 +74,9 @@ def predict():
         validated_input = HousingInput(**input_json)
         input_df = pd.DataFrame([validated_input.dict()])
         prediction = model.predict(input_df)[0]
-        logging.info(f"Prediction made | Input: {input_json} | Output: {prediction}")
+        logging.info(
+            f"Prediction made | Input: {input_json} | Output: {prediction}"
+        )
         PREDICTION_COUNT.inc()
         return jsonify({"prediction": round(float(prediction), 4)}), 200
 
