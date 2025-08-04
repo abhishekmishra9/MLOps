@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug  5 03:05:59 2025
+
+@author: kalya
+"""
+
 import os
 import joblib
 import logging
@@ -81,8 +88,8 @@ def predict():
 
     except Exception as e:
         ERROR_COUNT.inc()
-        logging.exception(" Prediction error")
-	print(e)
+        logging.exception(" Prediction error") 
+        print(e)
         return jsonify({"error": "Prediction failed"}), 500
 
 
@@ -130,7 +137,7 @@ def retrain():
 
     except Exception as e:
         ERROR_COUNT.inc()
-	print(e)
+        print(e)
         logging.exception("Retrain error")
         return jsonify({"error": "Retrain failed"}), 500
 

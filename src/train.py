@@ -15,7 +15,7 @@ mlflow.set_tracking_uri(data)
 mlflow.set_experiment("CaliforniaHousing")
 
 # Load dataset
-file=""C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv""
+file="C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv"
 df = pd.read_csv(file)
 X = df.drop(columns=["MedHouseVal"])
 y = df["MedHouseVal"]
@@ -71,4 +71,4 @@ with mlflow.start_run(run_name="best_model") as run:
         input_example=input_example,
         signature=signature
     )
-    print(f"📦 Model saved locally for API at: {save_path}")
+    print(f"Model saved locally for API at: {save_path}")
