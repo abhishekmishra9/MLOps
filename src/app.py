@@ -34,7 +34,10 @@ logging.basicConfig(
 
 # Prometheus metrics
 REQUEST_COUNT = Counter("api_requests_total", "Total number of requests")
-PREDICTION_COUNT = Counter("prediction_requests_total", "Total prediction requests")
+PREDICTION_COUNT = Counter(
+    "prediction_requests_total",
+    "Total prediction requests"
+)
 ERROR_COUNT = Counter("prediction_errors_total", "Total prediction errors")
 RETRAIN_COUNT = Counter("retrain_requests_total", "Total retrain requests")
 
