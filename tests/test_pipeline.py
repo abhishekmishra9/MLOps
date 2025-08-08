@@ -6,11 +6,8 @@ import pytest
 from src import preprocess
 from app import app, MODEL_PATH
 
-# Ensure src is importable from tests
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-
-
 
 # ---------- Test Preprocessing ----------
 def test_preprocess_output():
