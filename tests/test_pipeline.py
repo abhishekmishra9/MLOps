@@ -1,13 +1,14 @@
-import os
 import sys
+import os
+
+# Ensure src is importable from tests before any other imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import pandas as pd
 import joblib
 import pytest
 from src import preprocess
 from app import app, MODEL_PATH
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 # ---------- Test Preprocessing ----------
