@@ -1,0 +1,26 @@
+{
+  "dataframe_split": {
+    "columns": [
+      "MedInc",
+      "HouseAge",
+      "AveRooms",
+      "AveBedrms",
+      "Population",
+      "AveOccup",
+      "Latitude",
+      "Longitude"
+    ],
+    "data": [
+      [
+        4.2143,
+        37.0,
+        5.288235294117647,
+        0.973529411764706,
+        860.0,
+        2.5294117647058822,
+        33.81,
+        -118.12
+      ]
+    ]
+  }
+}

@@ -15,7 +15,7 @@ mlflow.set_tracking_uri(data)
 mlflow.set_experiment("CaliforniaHousing")
 
 # Load dataset
-file = "C:/Users/kalya/Downloads/DMML/mlops-housing/data/raw/housing.csv"
+file = "C:/Users/kalya/Downloads/DMML/mlops-housing/data/processed/housing.csv"
 df = pd.read_csv(file)
 X = df.drop(columns=["MedHouseVal"])
 y = df["MedHouseVal"]
