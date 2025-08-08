@@ -14,7 +14,6 @@ def load_data():
     os.makedirs(os.path.dirname(raw_path), exist_ok=True)
     df.to_csv(raw_path, index=False)
     print(f"Raw data saved to {raw_path}")
-    
     return df
 
 
