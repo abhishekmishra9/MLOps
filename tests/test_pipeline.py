@@ -4,10 +4,10 @@ import pandas as pd
 import joblib
 import pytest
 
-
+# Ensure src is importable from tests
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src import preprocess 
+from src import preprocess
 from app import app, MODEL_PATH
 
 
