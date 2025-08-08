@@ -57,11 +57,12 @@ jobs:
         docker push abhirift/mlops:latest
 
     # 9. Run container locally on GitHub Actions runner
-    - name: Run Docker container locally
-      run: |
-        docker run -d -p 8000:8000 --name mlops_app abhirift/mlops:latest
-        echo "Waiting for API to start..."
-        sleep 10
-        curl -X POST http://localhost:8000/predict \
-             -H "Content-Type: application/json" \
-             -d '{"feature1": 5.1, "feature2": 3.5, "feature3": 1.4, "feature4": 0.2}'
+   - name: Run Docker container locally
+     run: |
+    	docker run -d -p 8000:5000 --name mlops_app ${{ secrets.DOCKER_USERNAME }}/mlops:latest
+    	echo "Waiting for API to start..."
+    	sleep 10
+    	curl -X POST http://localhost:8000/predict \
+         -H "Content-Type: application/json" \
+         -d '{"MedInc": 5.1, "HouseAge": 20.0, "AveRooms": 6.0, "AveBedrms": 1.0, "Population": 800.0, "AveOccup": 2.5, "Latitude": 34.2, "Longitude": -118.4}'
+
