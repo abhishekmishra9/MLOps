@@ -1,14 +1,13 @@
 import sys
 import os
-
-# Add project root to path before importing anything else
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 import pandas as pd
 import joblib
 import pytest
 import preprocess
 from app import app, MODEL_PATH  # noqa: E402
+
+# Add project root to path before importing anything else
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 # ---------- Test Preprocessing ----------
