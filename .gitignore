@@ -1,7 +1,6 @@
 __pycache__/
 .ipynb_checkpoints/
 logs/
-*.pkl
 mlruns/
 !data/**/*.dvc
 !.dvc/
