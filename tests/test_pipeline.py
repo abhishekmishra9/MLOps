@@ -9,6 +9,7 @@ from app import app, MODEL_PATH
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+
 # ---------- Test Preprocessing ----------
 def test_preprocess_output():
     df_raw = preprocess.load_data()
